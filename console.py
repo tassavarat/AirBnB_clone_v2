@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, line):
-        """Creates a new instance of BaseModel, saves it
+        """Creates a new instance of a valid class with given attribute values
         Exceptions:
             SyntaxError: when there is no args given
             NameError: when there is no object taht has the name
@@ -43,6 +43,17 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = line.split(" ")
             obj = eval("{}()".format(my_list[0]))
+            for i in range(1, len(my_list)):
+                plist = my_list[i].split('=')
+                attr = plist[0]
+                val = plist[1]
+                if val[0] == "\"" and val[0] == "\"":
+                    val = plist[1][1:-1]
+                elif plist[1].isdigit():
+                    val = int(plist[1])
+                else:
+                    val = float(plist[1])
+                obj.__setattr__(attr, val)
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:
