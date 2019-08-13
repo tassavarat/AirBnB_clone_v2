@@ -47,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
                 plist = my_list[i].split('=')
                 attr = plist[0]
                 val = plist[1]
-                if val[0] == "\"" and val[0] == "\"":
+                if val[0][:1] == "\"" and val[0][-1:] == "\"":
                     val = plist[1][1:-1].replace('_', ' ').replace('\"', '\\"')
                 elif plist[1].isdigit():
                     val = int(plist[1])
