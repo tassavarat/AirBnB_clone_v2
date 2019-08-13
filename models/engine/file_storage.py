@@ -33,7 +33,7 @@ class FileStorage:
                     my_dict[cls.__name__] = value
         else:
             my_dict = self.__objects
-        return self.__objects
+        return my_dict
 
     def new(self, obj):
         """sets __object to given obj
