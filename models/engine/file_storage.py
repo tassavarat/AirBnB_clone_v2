@@ -25,6 +25,14 @@ class FileStorage:
         Return:
             returns a list of __object
         """
+        my_dict = {}
+
+        if cls:
+            for key, value in self.__objects.items():
+                if key.startswith(cls.__name__):
+                    my_dict[cls.__name__] = value
+        else:
+            my_dict = self.__objects
         return self.__objects
 
     def new(self, obj):
