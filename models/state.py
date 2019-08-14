@@ -18,4 +18,5 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
+            """Returns list of cities"""
             return [cities for city in storage.all(models.City).values()]

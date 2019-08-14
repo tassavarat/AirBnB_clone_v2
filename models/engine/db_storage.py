@@ -15,6 +15,7 @@ from models.review import Review
 
 
 class DBStorage():
+    """Class for mysql data storage"""
 
     __engine = None
     __session = None
@@ -22,6 +23,7 @@ class DBStorage():
     driver = 'mysqldb'
 
     def __init__(self):
+        """Class constructor"""
         self.__engine = create_engine("{}+{}://{}:{}@{}/{}".
                                       format(self.dialect, self.driver,
                                              getenv('HBNB_MYSQL_USER'),
