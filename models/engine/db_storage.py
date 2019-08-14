@@ -2,7 +2,7 @@
 """ The engine for airbnb"""
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 import models
 from os import environ, getenv
 from models.base_model import BaseModel, Base
@@ -42,19 +42,22 @@ class DBStorage():
                    "Amenity", "Place", "Review"]
 
         if cls:
-            for obj in self.__session.query(cls).all():
-                key = "{}.{}".format(obj.name, obj.id)
+            data = self.__session.query(cls).all()
+            for obj in data:
+                key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 my_dict[key] = obj
         else:
-            for obj in self.__session.query(classes).all():
-                key = "{}.{}".format(obj.name, obj.id)
+            data = self.__session.query(State).all()
+            data += self.__session.query(City).all()
+            for obj in data:
+                key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 my_dict[key] = obj
         return my_dict
 
     def new(self, obj):
         """ add the object to the current database session """
         self.__session.add(obj)
-        self.__commit()
+        self.__session.commit()
 
     def save(self):
         """ commit all changes of the current database session """
