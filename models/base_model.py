@@ -9,12 +9,13 @@ from datetime import datetime
 
 Base = declarative_base()
 
+
 class BaseModel:
     """This class will defines all common attributes/methods
     for other classes
     """
-    id  = Column(String(60), unique=True, nullable=False, primary_key=True)
-    created_at = Column(DateTime, default=datetime.utcnow(),nullable=False)
+    id = Column(String(60), unique=True, nullable=False, primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
 
     def __init__(self, *args, **kwargs):
@@ -71,7 +72,6 @@ class BaseModel:
         if '_sa_instance_state' in my_dict.keys():
             del(my_dict['_sa_instance_state'])
         return my_dict
-
 
     def delete(self):
         """ delete the current instance from the storage """
