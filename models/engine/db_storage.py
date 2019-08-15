@@ -19,20 +19,16 @@ class DBStorage():
 
     __engine = None
     __session = None
-    dialect = 'mysql'
-    driver = 'mysqldb'
 
     def __init__(self):
         """Class constructor"""
-        self.__engine = create_engine("{}+{}://{}:{}@{}/{}".
+        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".
                                       format(self.dialect, self.driver,
                                              getenv('HBNB_MYSQL_USER'),
                                              getenv('HBNB_MYSQL_PWD'),
                                              getenv('HBNB_MYSQL_HOST'),
                                              getenv('HBNB_MYSQL_DB'),
                                              pool_pre_ping=True))
-        self.__session = sessionmaker(bind=self.__engine)
-        session = self.__session()
         if getenv('HBNB_ENV') == 'test':
             data = session.query().all()
             Base.metadata.drop_all(self.__engine)
@@ -59,7 +55,6 @@ class DBStorage():
     def new(self, obj):
         """ add the object to the current database session """
         self.__session.add(obj)
-        self.__session.commit()
 
     def save(self):
         """ commit all changes of the current database session """
@@ -68,11 +63,11 @@ class DBStorage():
     def delete(self, obj=None):
         """ Deletes the objects from the database """
         if obj:
-            stored_obj = self.__session.query(obj).get(obj.id)
-            self.__session.delete(stored_obj)
+            self.__session.delete(obj)
 
     def reload(self):
         """ reloads a table from the database """
         Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.__session = scoped_session(Session)
+        Session = scoped_session(sessionmaker(bind=self.__engine,
+                                 expire_on_commit=False))
+        self.__session = Session()
