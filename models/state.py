@@ -18,5 +18,8 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-            """Returns list of cities"""
-            return [cities for city in storage.all(models.City).values()]
+            my_list = []
+            for data in self.cities:
+                if data.state_id == self.id:
+                    my_list.append(data)
+            return(my_list)
