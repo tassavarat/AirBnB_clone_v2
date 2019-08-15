@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """This is the place class"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float
+from sqlalchemy.orm import relationship
 
 
 class Place(BaseModel, Base):
@@ -10,7 +11,7 @@ class Place(BaseModel, Base):
         city_id: city id
         user_id: user id
         name: name input
-        description: string of description
+        description: String of description
         number_rooms: number of room in int
         number_bathrooms: number of bathrooms in int
         max_guest: maximum guest in int
@@ -20,10 +21,10 @@ class Place(BaseModel, Base):
         amenity_ids: list of Amenity ids
     """
     __tablename__ = "places"
-    city_id = Column(string(60), ForeignKey("cities.id"), nullable=False)
-    user_id = Column(string(60), ForeignKey("users.id"), nullable=False)
-    name = Column(string(128), nullable=False)
-    description = Column(string(1024))
+    city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
+    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+    name = Column(String(128), nullable=False)
+    description = Column(String(1024))
     number_rooms = Column(Integer, default=0, nullable=False)
     number_bathrooms = Column(Integer, default=0, nullable=False)
     max_guest = Column(Integer, default=0, nullable=False)
