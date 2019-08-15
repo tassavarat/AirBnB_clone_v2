@@ -32,3 +32,13 @@ class Place(BaseModel, Base):
     latitude = Column(Float)
     longitude = Column(Float)
     amenity_ids = []
+    if getenv("HBNB_MYSQL_DB") == 'db':
+        cities = relationship("Review", cascade='all, delete', backref="place")
+    else:
+        @property
+        def reviews(self):
+            my_list = []
+            for data in self.reviews:
+                if data.place_id == self.id:
+                    my_list.append(data)
+            return(my_list)
