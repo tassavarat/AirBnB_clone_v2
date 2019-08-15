@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This is the place class"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
 from os import getenv
 
@@ -32,9 +32,16 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, default=0, nullable=False)
     latitude = Column(Float)
     longitude = Column(Float)
+    metadata = Base.metadata
+    place_amenity = Table("place_amenity", metadata,
+                          Column('place_id', String(60), ForeignKey('places.id'), 
+                                 primary key=True, nullable=False),
+                          Column('amenity_id', String(60), ForeignKey('amenities.id'),
+                                 primary key=True, nullable=False))
     amenity_ids = []
     if getenv("HBNB_MYSQL_DB") == 'db':
         cities = relationship("Review", cascade='all, delete', backref="place")
+        amenities = relationship("Amenity", secondary=place_amenity, viewonly=False)
     else:
         @property
         def reviews(self):
@@ -43,3 +50,15 @@ class Place(BaseModel, Base):
                 if data.place_id == self.id:
                     my_list.append(data)
             return(my_list)
+
+        @property
+        def amenities(self):
+            my_list = []
+            for data in self.amenities:
+                if data.amenity_ids == self.id:
+                    my_list.append(data)
+            return(my_list)
+        @amenities.setter
+        def amenities(self, obj):
+            if type(obj) == Amenity:
+                self.amenity_ids.append(obj.id)
