@@ -6,6 +6,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from os import getenv
 from models.place import Place
 
+
 class Amenity(BaseModel, Base):
     """This is the class for Amenity
     Attributes:

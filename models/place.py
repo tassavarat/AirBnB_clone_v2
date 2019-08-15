@@ -34,14 +34,17 @@ class Place(BaseModel, Base):
     longitude = Column(Float)
     metadata = Base.metadata
     place_amenity = Table("place_amenity", metadata,
-                          Column('place_id', String(60), ForeignKey('places.id'),
+                          Column('place_id', String(60),
+                                 ForeignKey('places.id'),
                                  primary_key=True, nullable=False),
-                          Column('amenity_id', String(60), ForeignKey('amenities.id'),
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities.id'),
                                  primary_key=True, nullable=False))
     amenity_ids = []
     if getenv("HBNB_MYSQL_DB") == 'db':
         cities = relationship("Review", cascade='all, delete', backref="place")
-        amenities = relationship("Amenity", secondary=place_amenity, viewonly=False)
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 viewonly=False)
     else:
         @property
         def reviews(self):
@@ -58,6 +61,7 @@ class Place(BaseModel, Base):
                 if data.amenity_ids == self.id:
                     my_list.append(data)
             return(my_list)
+
         @amenities.setter
         def amenities(self, obj):
             if type(obj) == Amenity:
