@@ -48,6 +48,7 @@ class DBStorage():
             data += self.__session.query(User).all()
             data += self.__session.query(Place).all()
             data += self.__session.query(Review).all()
+            data += self.__session.query(Amenity).all()
             for obj in data:
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 my_dict[key] = obj
