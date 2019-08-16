@@ -108,6 +108,18 @@ Additionally, the console supports `<class name>.<command>(<parameters>)` syntax
 Ex:
 `City.show(my_city_id)`
 
+### 0. Fork me if you can!
+### 1 Bug free!
+### 2. Console improvements
+### 3. MySQL setup development 
+### 4. MySQL setup test
+### 5. Delete object 
+### 6. Delete object 
+### 7. DBStorage - User
+### 8. DBStorage - Place
+### 9. DBStorage - Review
+### 10. DBStorage - Amenity... and BOOM!
+
 #### Authors
 * [George Solorio](https://github.com/GeorgeSolorio)
 * [Tim Assavarat](https://github.com/tassavarat)
