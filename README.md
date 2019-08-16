@@ -312,33 +312,33 @@ Update BaseModel: (models/base_model.py)
 * Create Base = declarative_base() before the class definition of BaseModel
 * Note! BaseModel does /not/ inherit from Base. All other classes will inherit from BaseModel to get common values (id, created_at, updated_at), where inheriting from Base will actually cause SQLAlchemy to attempt to map it to a table.
 * Add or replace in the class BaseModel:
-class attribute id
+	* class attribute id
 represents a column containing a unique string (60 characters)
 can’t be null
 primary key
-class attribute created_at
+	* class attribute created_at
 represents a column containing a datetime
 can’t be null
 default value is the current datetime (use datetime.utcnow())
-class attribute updated_at
+	* class attribute updated_at
 represents a column containing a datetime
 can’t be null
 default value is the current datetime (use datetime.utcnow())
 * Move the models.storage.new(self) from def __init__(self, *args, **kwargs): to def save(self): and call it just before models.storage.save()
 * In def __init__(self, *args, **kwargs):, manage kwargs to create instance attribute from this dictionary. Ex: kwargs={ 'name': "California" } => self.name = "California" if it’s not already the case
 * Update the to_dict() method of the class BaseModel:
-remove the key _sa_instance_state from the dictionary returned by this method only if this key exists
+	* remove the key _sa_instance_state from the dictionary returned by this method only if this key exists
 * Add a new public instance method: def delete(self): to delete the current instance from the storage (models.storage) by calling the method delete
 Update City: (models/city.py)
 
 * City inherits from BaseModel and Base (respect the order)
 * Add or replace in the class City:
-class attribute __tablename__ -
+	* class attribute __tablename__ -
 represents the table name, cities
-class attribute name
+	* class attribute name
 represents a column containing a string (128 characters)
 can’t be null
-class attribute state_id
+	* class attribute state_id
 represents a column containing a string (60 characters)
 can’t be null
 is a foreign key to states.id
@@ -346,20 +346,20 @@ Update State: (models/state.py)
 
 * State inherits from BaseModel and Base (respect the order)
 * Add or replace in the class State:
-class attribute __tablename__
+	* class attribute __tablename__
 represents the table name, states
-class attribute name
+	* class attribute name
 represents a column containing a string (128 characters)
 can’t be null
-for DBStorage: class attribute cities must represent a relationship with the class City. If the State object is deleted, all linked City objects must be automatically deleted. Also, the reference from a City object to his State should be named state
-for FileStorage: getter attribute cities that returns the list of City instances with state_id equals to the current State.id => It will be the FileStorage relationship between State and City
+	* for DBStorage: class attribute cities must represent a relationship with the class City. If the State object is deleted, all linked City objects must be automatically deleted. Also, the reference from a City object to his State should be named state
+	* for FileStorage: getter attribute cities that returns the list of City instances with state_id equals to the current State.id => It will be the FileStorage relationship between State and City
 New engine DBStorage: (models/engine/db_storage.py)
 
 * Private class attributes:
-__engine: set to None
-__session: set to None
+	* __engine: set to None
+	* __session: set to None
 * Public instance methods:
-__init__(self):
+	* __init__(self):
 create the engine (self.__engine)
 the engine must be linked to the MySQL database and user created before (hbnb_dev and hbnb_dev_db):
 dialect: mysql
@@ -371,25 +371,25 @@ MySQL host: HBNB_MYSQL_HOST (here = localhost)
 MySQL database: HBNB_MYSQL_DB
 don’t forget the option pool_pre_ping=True when you call create_engine
 drop all tables if the environment variable HBNB_ENV is equal to test
-all(self, cls=None):
+	* all(self, cls=None):
 query on the current database session (self.__session) all objects depending of the class name (argument cls)
 if cls=None, query all types of objects (User, State, City, Amenity, Place and Review)
 this method must return a dictionary: (like FileStorage)
 key = <class-name>.<object-id>
 value = object
-new(self, obj): add the object to the current database session (self.__session)
-save(self): commit all changes of the current database session (self.__session)
-delete(self, obj=None): delete from the current database session obj if not None
-reload(self):
+	* new(self, obj): add the object to the current database session (self.__session)
+	* save(self): commit all changes of the current database session (self.__session)
+	* delete(self, obj=None): delete from the current database session obj if not None
+	* reload(self):
 create all tables in the database (feature of SQLAlchemy) (WARNING: all classes who inherit from Base must be imported before calling Base.metadata.create_all(engine))
 create the current database session (self.__session) from the engine (self.__engine) by using a sessionmaker - the option expire_on_commit must be set to False ; and scoped_session - to make sure your Session is thread-safe
 Update __init__.py: (models/__init__.py)
 
 * Add a conditional depending of the value of the environment variable HBNB_TYPE_STORAGE:
-If equal to db:
+	* If equal to db:
 Import DBStorage class in this file
 Create an instance of DBStorage and store it in the variable storage (the line storage.reload() should be executed after this instantiation)
-Else:
+	* Else:
 Import FileStorage class in this file
 Create an instance of FileStorage and store it in the variable storage (the line storage.reload() should be executed after this instantiation)
 * This “switch” will allow you to change storage type directly by using an environment variable (example below)
