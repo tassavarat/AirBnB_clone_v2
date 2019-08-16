@@ -32,7 +32,7 @@ This is the console /command interpreter for the Holberton Airbnb clone project.
 * Allowed editors: vi, vim, emacs
 * All your files should end with a new line
 * All your test files should be inside a folder tests
-* You have to use the unittest module
+* You have to use the [unittest module](https://intranet.hbtn.io/rltoken/u7l9IP_paqAZQBk3knUzDw)
 * All your test files should be python files (extension: .py)
 * All your test files and folders should start by test_
 * Your file organization in the tests folder should be the same as your project: ex: for models/base_model.py, unit tests must be in: tests/test_models/test_base_model.py
@@ -120,7 +120,7 @@ In the industry, you will work on an existing codebase 90% of the time. Your fir
 * “… I will refactor everything…”
 But the worst thing you could possibly do is to redo everything. Please don’t do that! Note: the existing codebase might be perfect, or it might have errors. Don’t always trust the existing codebase!
 
-For this project you will fork this codebase:
+For this project you will fork this [codebase](https://github.com/yook00627/AirBnB_clone.git):
 
 * update the repository name to AirBnB_clone_v2
 * update the README.md with your information but don’t delete the initial authors
