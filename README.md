@@ -571,6 +571,58 @@ guillaume@ubuntu:~/AirBnB_v2$
 ```
 
 ### 9. DBStorage - Review
+Update Review: (models/review.py)
+
+* Review inherits from BaseModel and Base (respect the order)
+* Add or replace in the class Review:
+	* class attribute __tablename__
+		* represents the table name, reviews
+	* class attribute text
+		* represents a column containing a string (1024 characters)
+		* can’t be null
+	* class attribute place_id
+		* represents a column containing a string (60 characters)
+		* can’t be null
+		* is a foreign key to places.id
+	* class attribute user_id
+		* represents a column containing a string (60 characters)
+		* can’t be null
+		* is a foreign key to users.id
+Update User: (models/user.py)
+
+* Add or replace in the class User:
+	* class attribute reviews must represent a relationship with the class Review. If the User object is deleted, all linked Review objects must be automatically deleted. Also, the reference from a Review object to his User should be named user
+Update Place: (models/place.py)
+
+* for DBStorage: class attribute reviews must represent a relationship with the class Review. If the Place object is deleted, all linked Review objects must be automatically deleted. Also, the reference from a Review object to his Place should be named place
+* for FileStorage: getter attribute reviews that returns the list of Review instances with place_id equals to the current Place.id => It will be the FileStorage relationship between Place and Review
+
+```
+guillaume@ubuntu:~/AirBnB_v2$ 
+guillaume@ubuntu:~/AirBnB_v2$ echo 'create User email="bob@hbtn.io" password="bobpwd" first_name="Bob" last_name="Dylan"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py 
+(hbnb) d93638d9-8233-4124-8f4e-17786592908b
+(hbnb) 
+guillaume@ubuntu:~/AirBnB_v2$ 
+guillaume@ubuntu:~/AirBnB_v2$ echo 'create Review place_id="ed72aa02-3286-4891-acbc-9d9fc80a1103" user_id="d93638d9-8233-4124-8f4e-17786592908b" text="Amazing_place,_huge_kitchen"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py 
+(hbnb) a2d163d3-1982-48ab-a06b-9dc71e68a791
+(hbnb) 
+guillaume@ubuntu:~/AirBnB_v2$ 
+guillaume@ubuntu:~/AirBnB_v2$ echo 'all Review' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py 
+(hbnb) [[Review] (f2616ff2-f723-4d67-85dc-f050a38e0f2f) {'text': 'Amazing place, huge kitchen', 'place_id': 'ed72aa02-3286-4891-acbc-9d9fc80a1103', 'id': 'f2616ff2-f723-4d67-85dc-f050a38e0f2f', 'updated_at': datetime.datetime(2017, 11, 10, 4, 6, 25), 'created_at': datetime.datetime(2017, 11, 10, 4, 6, 25), 'user_id': 'd93638d9-8233-4124-8f4e-17786592908b'}]
+(hbnb) 
+guillaume@ubuntu:~/AirBnB_v2$ 
+guillaume@ubuntu:~/AirBnB_v2$ echo 'SELECT * FROM reviews\G' | mysql -uhbnb_dev -p hbnb_dev_db
+Enter password: 
+*************************** 1. row ***************************
+        id: f2616ff2-f723-4d67-85dc-f050a38e0f2f
+created_at: 2017-11-10 04:06:25
+updated_at: 2017-11-10 04:06:25
+      text: Amazing place, huge kitchen
+  place_id: ed72aa02-3286-4891-acbc-9d9fc80a1103
+   user_id: d93638d9-8233-4124-8f4e-17786592908b
+guillaume@ubuntu:~/AirBnB_v2$ 
+```
+
 ### 10. DBStorage - Amenity... and BOOM!
 
 #### Authors
