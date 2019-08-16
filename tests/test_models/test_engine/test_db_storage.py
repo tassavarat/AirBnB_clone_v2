@@ -11,10 +11,10 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from models.engine.file_storage import FileStorage
+from models.engine.db_storage import DBStorage
 
 
-class TestDbFileStorage(unittest.TestCase):
+class TestDbStorage(unittest.TestCase):
     '''this will test the FileStorage'''
 
     def test_pep8_FileStorage(self):
@@ -27,10 +27,10 @@ class TestDbFileStorage(unittest.TestCase):
                                                        "Don't run file")
     def test_attr(self):
         """Checking attributes"""
-    self.assertTrue(hasattr(DBStorage, "_DBStorage_engine"))
-    self.assertTrue(hasattr(DBStorage, "_DBStorage_session"))
-    self.assertTrue(hasattr(DBStorage, "all"))
-    self.assertTrue(hasattr(DBStorage, "new"))
-    self.assertTrue(hasattr(DBStorage, "save"))
-    self.assertTrue(hasattr(DBStorage, "delete"))
-    self.assertTrue(hasattr(DBStorage, "reload"))
+        self.assertTrue(hasattr(DBStorage, "_DBStorage__engine"))
+        self.assertTrue(hasattr(DBStorage, "_DBStorage__session"))
+        self.assertTrue(hasattr(DBStorage, "all"))
+        self.assertTrue(hasattr(DBStorage, "new"))
+        self.assertTrue(hasattr(DBStorage, "save"))
+        self.assertTrue(hasattr(DBStorage, "delete"))
+        self.assertTrue(hasattr(DBStorage, "reload"))
