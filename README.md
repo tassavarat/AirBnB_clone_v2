@@ -633,10 +633,10 @@ Update Amenity: (models/amenity.py)
 	* class attribute name
 		* represents a column containing a string (128 characters)
 		* can’t be null
-	* class attribute place_amenities must represent a relationship Many-To-Many between the class Place and Amenity. Please see below more detail: place_amenity in the Place update
+	* class attribute place_amenities must represent a relationship [Many-To-Many](https://intranet.hbtn.io/rltoken/7aK_5lCJr8Dz6JxSNndYAA) between the class Place and Amenity. Please see below more detail: place_amenity in the Place update
 Update Place: (models/place.py)
 
-* Add an instance of SQLAlchemy Table called place_amenity for creating the relationship Many-To-Many between Place and Amenity:
+* Add an instance of [SQLAlchemy Table](https://intranet.hbtn.io/rltoken/03W_CWGuRCXiZ_9jpQxHQg) called place_amenity for creating the relationship [Many-To-Many](https://intranet.hbtn.io/rltoken/7aK_5lCJr8Dz6JxSNndYAA) between Place and Amenity:
 	* table name place_amenity
 	* metadata = Base.metadata
 	* 2 columns:
