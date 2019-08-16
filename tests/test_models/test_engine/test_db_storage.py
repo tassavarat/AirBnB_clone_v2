@@ -24,6 +24,7 @@ class TestDbFileStorage(unittest.TestCase):
         p = style.check_files(['models/engine/db_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == "file", "Don't run file")
     def test_attr(self):
 	"""Checking attributes"""
     self.assertTrue(hasattr(DBStorage, "_DBStorage_engine"))
