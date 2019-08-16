@@ -449,7 +449,127 @@ updated_at: 2017-11-10 00:53:19
 guillaume@ubuntu:~/AirBnB_v2$ 
 ```
 ### 7. DBStorage - User
+Update User: (models/user.py)
+
+* User inherits from BaseModel and Base (respect the order)
+* Add or replace in the class User:
+	* class attribute __tablename__
+		* represents the table name, users
+	* class attribute email
+		* represents a column containing a string (128 characters)
+		* can’t be null
+	* class attribute password
+		* represents a column containing a string (128 characters)
+		* can’t be null
+	* class attribute first_name
+		* represents a column containing a string (128 characters)
+		* can be null
+	* class attribute last_name
+		* represents a column containing a string (128 characters)
+		* can be null
+
+```
+guillaume@ubuntu:~/AirBnB_v2$ echo 'create User email="gui@hbtn.io" password="guipwd" first_name="Guillaume" last_name="Snow"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py 
+(hbnb) 4f3f4b42-a4c3-4c20-a492-efff10d00c0b
+(hbnb) 
+guillaume@ubuntu:~/AirBnB_v2$
+guillaume@ubuntu:~/AirBnB_v2$ echo 'all User' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py 
+(hbnb) [[User] (4f3f4b42-a4c3-4c20-a492-efff10d00c0b) {'updated_at': datetime.datetime(2017, 11, 10, 1, 17, 26), 'id': '4f3f4b42-a4c3-4c20-a492-efff10d00c0b', 'last_name': 'Snow', 'first_name': 'Guillaume', 'email': 'gui@hbtn.io', 'created_at': datetime.datetime(2017, 11, 10, 1, 17, 26), 'password': 'f4ce007d8e84e0910fbdd7a06fa1692d'}]
+(hbnb) 
+guillaume@ubuntu:~/AirBnB_v2$
+guillaume@ubuntu:~/AirBnB_v2$ echo 'SELECT * FROM users\G' | mysql -uhbnb_dev -p hbnb_dev_db
+Enter password: 
+*************************** 1. row ***************************
+        id: 4f3f4b42-a4c3-4c20-a492-efff10d00c0b
+created_at: 2017-11-10 01:17:26
+updated_at: 2017-11-10 01:17:26
+     email: gui@hbtn.io
+  password: guipwd
+first_name: Guillaume
+ last_name: Snow
+guillaume@ubuntu:~/AirBnB_v2$
+```
+
 ### 8. DBStorage - Place
+Update Place: (models/place.py)
+
+* Place inherits from BaseModel and Base (respect the order)
+* Add or replace in the class Place:
+	* class attribute __tablename__
+		* represents the table name, places
+	* class attribute city_id
+		* represents a column containing a string (60 characters)
+		* can’t be null
+		* is a foreign key to cities.id
+	* class attribute user_id
+		* represents a column containing a string (60 characters)
+		* can’t be null
+		* is a foreign key to users.id
+	* class attribute name
+		* represents a column containing a string (128 characters)
+		* can’t be null
+	* class attribute description
+		* represents a column containing a string (1024 characters)
+		* can be null
+	* class attribute number_rooms
+		* represents a column containing an integer
+		* can’t be null
+		* default value: 0
+	* class attribute number_bathrooms
+		* represents a column containing an integer
+		* can’t be null
+		* default value: 0
+	* class attribute max_guest
+		* represents a column containing an integer
+		* can’t be null
+		* default value: 0
+	* class attribute price_by_night
+		* represents a column containing an integer
+		* can’t be null
+		* default value: 0
+	* class attribute latitude
+		* represents a column containing a float
+		* can be null
+	* class attribute longitude
+		* represents a column containing a float
+		* can be null
+Update User: (models/user.py)
+
+* Add or replace in the class User:
+	* class attribute places must represent a relationship with the class Place. If the User object is deleted, all linked Place objects must be automatically deleted. Also, the reference from a Place object to his User should be named user
+Update City: (models/city.py)
+
+* Add or replace in the class City:
+	* class attribute places must represent a relationship with the class Place. If the City object is deleted, all linked Place objects must be automatically deleted. Also, the reference from a Place object to his City should be named cities
+
+```
+guillaume@ubuntu:~/AirBnB_v2$ echo 'create Place city_id="4b457e66-c7c8-4f63-910f-fd91c3b7140b" user_id="4f3f4b42-a4c3-4c20-a492-efff10d00c0b" name="Lovely_place" number_rooms=3 number_bathrooms=1 max_guest=6 price_by_night=120 latitude=37.773972 longitude=-122.431297' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py 
+(hbnb) ed72aa02-3286-4891-acbc-9d9fc80a1103
+(hbnb) 
+guillaume@ubuntu:~/AirBnB_v2$ 
+guillaume@ubuntu:~/AirBnB_v2$ echo 'all Place' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py 
+(hbnb) [[Place] (ed72aa02-3286-4891-acbc-9d9fc80a1103) {'latitude': 37.774, 'city_id': '4b457e66-c7c8-4f63-910f-fd91c3b7140b', 'price_by_night': 120, 'id': 'ed72aa02-3286-4891-acbc-9d9fc80a1103', 'user_id': '4f3f4b42-a4c3-4c20-a492-efff10d00c0b', 'max_guest': 6, 'created_at': datetime.datetime(2017, 11, 10, 1, 22, 30), 'description': None, 'number_rooms': 3, 'longitude': -122.431, 'number_bathrooms': 1, 'name': '"Lovely place', 'updated_at': datetime.datetime(2017, 11, 10, 1, 22, 30)}]
+(hbnb) 
+guillaume@ubuntu:~/AirBnB_v2$ 
+guillaume@ubuntu:~/AirBnB_v2$ echo 'SELECT * FROM places\G' | mysql -uhbnb_dev -p hbnb_dev_db
+Enter password: 
+*************************** 1. row ***************************
+              id: ed72aa02-3286-4891-acbc-9d9fc80a1103
+      created_at: 2017-11-10 01:22:30
+      updated_at: 2017-11-10 01:22:30
+         city_id: 4b457e66-c7c8-4f63-910f-fd91c3b7140b
+         user_id: 4f3f4b42-a4c3-4c20-a492-efff10d00c0b
+            name: "Lovely place"
+     description: NULL
+    number_rooms: 3
+number_bathrooms: 1
+       max_guest: 6
+  price_by_night: 120
+        latitude: 37.774
+       longitude: -122.431
+guillaume@ubuntu:~/AirBnB_v2$ 
+```
+
 ### 9. DBStorage - Review
 ### 10. DBStorage - Amenity... and BOOM!
 
