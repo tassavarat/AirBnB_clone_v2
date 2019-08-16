@@ -2,7 +2,7 @@
 
 This is the console /command interpreter for the Holberton Airbnb clone project. The console can be used to store objects in and retrieve objects from a JSON.
 
-###Learning Objectives
+### Learning Objectives
 * What is Unit testing and how to implement it in a large project
 * What is *args and how to use it
 * What is **kwargs and how to use it
