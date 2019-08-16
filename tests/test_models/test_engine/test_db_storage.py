@@ -17,7 +17,6 @@ from models.engine.file_storage import FileStorage
 class TestDbFileStorage(unittest.TestCase):
     '''this will test the FileStorage'''
 
-
     def test_pep8_FileStorage(self):
         """Tests pep8 style"""
         style = pep8.StyleGuide(quiet=True)
@@ -25,9 +24,9 @@ class TestDbFileStorage(unittest.TestCase):
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
     @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "file",
-						       "Don't run file")
+                                                       "Don't run file")
     def test_attr(self):
-	"""Checking attributes"""
+        """Checking attributes"""
     self.assertTrue(hasattr(DBStorage, "_DBStorage_engine"))
     self.assertTrue(hasattr(DBStorage, "_DBStorage_session"))
     self.assertTrue(hasattr(DBStorage, "all"))
