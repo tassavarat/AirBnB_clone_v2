@@ -43,6 +43,20 @@ This is the console /command interpreter for the Holberton Airbnb clone project.
 * All your functions (inside and outside a class) should have documentation (python3 -c 'print(__import__("my_module").my_function.__doc__)' and python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)')
 * We strongly encourage you to work together on test cases, so that you don’t miss any edge cases
 
+## SQL Scripts
+* Allowed editors: vi, vim, emacs
+* All your files will be executed on Ubuntu 14.04 LTS using MySQL 5.7 (version 5.7.8-rc)
+* Your files will be executed with SQLAlchemy version 1.2.x
+* All your files should end with a new line
+* All your SQL queries should have a comment just before (i.e. syntax above)
+* All your files should start by a comment describing the task
+* All SQL keywords should be in uppercase (SELECT, WHERE…)
+* A README.md file, at the root of the folder of the project, is mandatory
+* The length of your files will be tested using wc
+
+### More Info
+![info0](https://s3.amazonaws.com/intranet-projects-files/concepts/74/hbnb_step2.png)
+
 ### Supported classes:
 * BaseModel
 * User
