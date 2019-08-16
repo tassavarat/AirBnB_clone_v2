@@ -143,7 +143,7 @@ guillaume@ubuntu:~/AirBnB_v2$ HBNB_ENV=test HBNB_MYSQL_USER=hbnb_test HBNB_MYSQL
 OK
 guillaume@ubuntu:~/AirBnB_v2$ 
 ```
-Some tests won’t be relevant for some type of storage, please skip them by using the skipIf feature of the Unittest module - 26.3.6. Skipping tests and expected failures. Of course, the number of tests must be higher than the current number of tests, so if you decide to skip a test, you should write a new test!
+Some tests won’t be relevant for some type of storage, please skip them by using the skipIf feature of [the Unittest module - 26.3.6. Skipping tests and expected failures](https://intranet.hbtn.io/rltoken/BOkr9tNyPYYqqzYVQgDzEQ). Of course, the number of tests must be higher than the current number of tests, so if you decide to skip a test, you should write a new test!
 
 How to test with MySQL?
 First, you create a specific database for it (next tasks). After, you have to remember what the purpose of an unittest?
