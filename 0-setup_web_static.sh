@@ -12,10 +12,8 @@ echo "<html>
   <body>
     Holberton School
   </body>
-</html>" >> /data/web_static/releases/test/index.html
+</html>" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data/
-sed -i '/listen \[::\]:80 default_server;/a location /hbnb_static {' /etc/nginx/sites-available/default
-sed -i '/location \/hbnb_static {/a alias /data/web_static/current/;' /etc/nginx/sites-available/default
-sed -i '/alias \/data\/web_static\/current\//a }' /etc/nginx/sites-available/default
+sed -i '/listen \[::\]:80 default_server;/a location /hbnb_static/ {\nalias /data/web_static/current/;\n}' /etc/nginx/sites-available/default
 service nginx restart
