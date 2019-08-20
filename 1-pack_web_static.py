@@ -8,6 +8,7 @@ from fabric.api import local
 def do_pack():
     """Generates a .tgz archive from the contents of web_static folder of
     AriBnB Clone repo
+    Returns: Archive path, otherwise False
     """
     ct = datetime.now().strftime("%Y%m%d%H%M%S")
 
