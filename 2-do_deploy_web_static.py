@@ -6,20 +6,6 @@ from fabric.api import *
 env.hosts = ["35.237.54.178", "35.196.248.176"]
 
 
-def do_pack():
-    """Generates a .tgz archive from the contents of web_static folder of
-    AriBnB Clone repo
-    Returns: Archive path, otherwise False
-    """
-    ct = datetime.now().strftime("%Y%m%d%H%M%S")
-
-    local("mkdir -p versions")
-
-    local("tar -cvzf versions/web_static_{}.tgz web_static".format(ct))
-    if isfile("versions/web_static_{}.tgz".format(ct)):
-        return "versions/web_static_{}.tgz".format(ct)
-
-
 def do_deploy(archive_path):
     """Distributes an archive to your web servers
     archive_path: Path to archive
