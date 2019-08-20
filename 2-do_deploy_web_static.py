@@ -31,33 +31,20 @@ def do_deploy(archive_path):
     file_ne = archive_path.split('/')[1].split('.')[0]
     file_np = archive_path.split('/')[1]
 
-    stat = put(archive_path, "/tmp/")
-    if stat.failed:
-        return False
-    stat = run("mkdir -p /data/web_static/releases/{}/".format(file_ne))
-    if stat.failed:
-        return False
-    stat = run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
-               format(file_np, file_ne))
-    if stat.failed:
-        return False
-    stat = run("rm /tmp/{}".format(file_np))
-    if stat.failed:
-        return False
-    stat = run("mv /data/web_static/releases/{}/web_static/* \
+    try:
+        stat = put(archive_path, "/tmp/")
+        stat = run("mkdir -p /data/web_static/releases/{}/".format(file_ne))
+        stat = run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+                   format(file_np, file_ne))
+        stat = run("rm /tmp/{}".format(file_np))
+        stat = run("mv /data/web_static/releases/{}/web_static/* \
 /data/web_static/releases/{}/".format(file_ne, file_ne))
-    if stat.failed:
+        stat = run("rm -rf /data/web_static/releases/{}/web_static".
+                   format(file_ne))
+        stat = run("rm -rf /data/web_static/current")
+        stat = run("ln -s /data/web_static/releases/{}/ \
+/data/web_static/current".format(file_ne))
+        print("New version deployed!")
+        return True
+    except Exception:
         return False
-    stat = run("rm -rf /data/web_static/releases/{}/web_static".
-               format(file_ne))
-    if stat.failed:
-        return False
-    stat = run("rm -rf /data/web_static/current")
-    if stat.failed:
-        return False
-    stat = run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
-               format(file_ne))
-    if stat.failed:
-        return False
-    print("New version deployed!")
-    return True
