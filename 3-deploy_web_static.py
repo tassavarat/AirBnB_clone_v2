@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 """3-deploy_web_static module"""
 from os.path import isfile
+from datetime import datetime
 from fabric.api import *
+
+env.hosts = ["35.237.54.178", "35.196.248.176"]
 
 
 def do_pack():
