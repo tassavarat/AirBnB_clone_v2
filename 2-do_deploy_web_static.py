@@ -15,7 +15,7 @@ def do_deploy(archive_path):
         return False
 
     try:
-        apne = archive_path.split(".")[0]
+        apne = archive_path.split('/')[1].split('.')[0]
 
         put("archive_path", "/tmp/")
         run("mkdir -p /data/web_static/releases/{}".format(apne))
