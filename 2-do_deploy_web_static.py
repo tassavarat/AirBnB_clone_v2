@@ -32,17 +32,17 @@ def do_deploy(archive_path):
     file_np = archive_path.split('/')[1]
 
     try:
-        stat = put(archive_path, "/tmp/")
-        stat = run("mkdir -p /data/web_static/releases/{}/".format(file_ne))
-        stat = run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
-                   format(file_np, file_ne))
-        stat = run("rm /tmp/{}".format(file_np))
-        stat = run("mv /data/web_static/releases/{}/web_static/* \
+        put(archive_path, "/tmp/")
+        run("mkdir -p /data/web_static/releases/{}/".format(file_ne))
+        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+            format(file_np, file_ne))
+        run("rm /tmp/{}".format(file_np))
+        run("mv /data/web_static/releases/{}/web_static/* \
 /data/web_static/releases/{}/".format(file_ne, file_ne))
-        stat = run("rm -rf /data/web_static/releases/{}/web_static".
-                   format(file_ne))
-        stat = run("rm -rf /data/web_static/current")
-        stat = run("ln -s /data/web_static/releases/{}/ \
+        run("rm -rf /data/web_static/releases/{}/web_static".
+            format(file_ne))
+        run("rm -rf /data/web_static/current")
+        run("ln -s /data/web_static/releases/{}/ \
 /data/web_static/current".format(file_ne))
         print("New version deployed!")
         return True
