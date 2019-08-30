@@ -32,7 +32,7 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """ this method returns a dictionary """
+        """Returns a dictionary"""
         my_dict = {}
         classes = ["BaseModel", "User", "State", "City",
                    "Amenity", "Place", "Review"]
@@ -55,21 +55,27 @@ class DBStorage():
         return my_dict
 
     def new(self, obj):
-        """ add the object to the current database session """
+        """Adds the object to the current database session"""
         self.__session.add(obj)
 
     def save(self):
-        """ commit all changes of the current database session """
+        """Commits all changes of the current database session"""
         self.__session.commit()
 
     def delete(self, obj=None):
-        """ Deletes the objects from the database """
+        """Deletes the objects from the database"""
         if obj:
             self.__session.delete(obj)
 
     def reload(self):
-        """ reloads a table from the database """
+        """Reloads a table from the database"""
         Base.metadata.create_all(self.__engine)
         Session = scoped_session(sessionmaker(bind=self.__engine,
                                  expire_on_commit=False))
         self.__session = Session()
+
+    def close(self):
+        """Calls remove() method on private session attribute (self.__session)
+        or close() on the class Session
+        """
+        self.__session.close()
