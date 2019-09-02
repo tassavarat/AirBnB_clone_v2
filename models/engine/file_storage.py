@@ -29,8 +29,8 @@ class FileStorage:
 
         if cls:
             for key, value in self.__objects.items():
-                if key.startswith(cls.__name__):
-                    my_dict[cls.__name__] = value
+                if key.startswith(str(cls.__name__)):
+                    my_dict[key] = value
         else:
             my_dict = self.__objects
         return my_dict
