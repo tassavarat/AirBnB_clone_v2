@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """6-number_odd_or_even module
-Starts a Flask web application"""
+Starts a Flask web application
+"""
 
 from flask import Flask, render_template
 app = Flask(__name__)
