@@ -4,7 +4,7 @@ Starts a Flask web application
 """
 
 from flask import Flask, render_template
-from models import storage
+from models import storage, State
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
@@ -16,7 +16,7 @@ def state_list():
     UL tag: list of all State objects in DBStorage sorted by name
     """
     return render_template("7-states_list.html",
-                           data=storage.all("State").values())
+                           data=storage.all(State).values())
 
 
 @app.teardown_appcontext
