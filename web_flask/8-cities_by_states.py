@@ -17,8 +17,7 @@ def cities_by_states():
     LI tag: list of City objects linked to State sorted by name
     """
     return render_template("8-cities_by_states.html",
-                           state_data=storage.all("State").values(),
-                           city_data=storage.all("City").values())
+                           data=storage.all("State").values())
 
 
 @app.teardown_appcontext
