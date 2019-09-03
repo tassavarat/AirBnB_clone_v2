@@ -4,7 +4,7 @@ Starts a Flask web application
 """
 
 from flask import Flask, render_template
-from models import storage
+from models import storage, State
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
@@ -17,7 +17,7 @@ def cities_by_states():
     LI tag: list of City objects linked to State sorted by name
     """
     return render_template("8-cities_by_states.html",
-                           data=storage.all("State").values())
+                           data=storage.all(State).values())
 
 
 @app.teardown_appcontext

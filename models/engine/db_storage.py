@@ -38,7 +38,7 @@ class DBStorage():
                    "Amenity", "Place", "Review"]
 
         if cls:
-            data = self.__session.query(eval(cls)).all()
+            data = self.__session.query(cls).all()
             for obj in data:
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 my_dict[key] = obj
