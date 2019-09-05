@@ -57,19 +57,24 @@ button:hover {
     border-radius: 4px;
     max-height: 300px;
     background: #FAFAFA;
-    padding-bottom: 25px;
-    overflow: scroll;
+    overflow-y: scroll;
+    margin-bottom: auto;
+    font-weight: bold;
+    padding-bottom: 40px;
 }
 .amenities .popover {
     padding: 20px 0;
     margin-left: -5px;
-    margin-top: 1%;
 }
 .locations .popover {
-    margin-top: 1%;
 }
 .popover ul {
     list-style-type: none;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.popover li {
+    margin-bottom: 5px;
 }
 .amenities:hover .popover,
 .locations:hover .popover {

@@ -1,28 +1,53 @@
 <!DOCTYPE html>
-<HTML lang="en">
-	<HEAD>
-		<TITLE>HBNB</TITLE>
-	</HEAD>
-	<BODY>
-	{% if id -%}
-		{% for state in data if state.id == id %}
-		<H1>State: {{ state.name }}</H1>
-		<H3>Cities:</H3>
-		<UL>
-			{% for city in state.cities|sort(attribute="name") %}
-			<LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
-			{% endfor %}
-		</UL>
-		{% else %}
-		<H1>Not found!</H1>
-		{% endfor %}
-	{%- else %}
-		<H1>States</H1>
-		<UL>
-			{% for state in data|sort(attribute="name") %}
-			<LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
-			{% endfor %}
-		</UL>
-	{%- endif %}
-	</BODY>
-</HTML>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="static/styles/4-common.css">
+		<link rel="stylesheet" type="text/css" href="static/styles/3-header.css">
+		<link rel="stylesheet" type="text/css" href="static/styles/3-footer.css">
+		<link rel="stylesheet" type="text/css" href="static/styles/6-filters.css">
+		<link rel="icon" href="static/images/icon.png" />
+		<title>HBnB</title>
+	</head>
+	<body>
+		<header>
+			<div class="logo"></div>
+		</header>
+		<div class="container">
+			<section class="filters">
+				<div class="locations">
+					<h3>States</h3>
+					<h4>&nbsp;</h4>
+					<div class="popover">
+        					<UL>
+						{% for state in location|sort(attribute="name") %}
+							<li>
+								<h2>{{ state.name }}</h2>
+                						<UL>
+								{% for city in state.cities|sort(attribute="name") %}
+									<LI>{{ city.name }}</LI>
+								{% endfor %}
+                						</UL>
+							</LI>
+						{% endfor %}
+        					</UL>
+					</div>
+				</div>
+				<div class="amenities">
+					<h3>Amenities</h3>
+					<h4>&nbsp;</h4>
+					<div class="popover">
+						<ul>
+						{% for amenity in amenities|sort(attribute="name") %}
+							<li>{{ amenity.name }}</li>
+						{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<button type="button">Search</button>
+			</section>
+		</div>
+		<footer>
+			<p>Holberton School</p>
+		</footer>
+	</body>
+</html>

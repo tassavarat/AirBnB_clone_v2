@@ -1,23 +1,20 @@
 #!/usr/bin/python3
-"""8-cities_by_states module
+"""10-hbnb_filters module
 Starts a Flask web application
 """
 
 from flask import Flask, render_template
-from models import storage, State
+from models import storage, State, Amenity
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
 @app.route("/hbnb_filters")
 def states():
-    """Displays HTML page
-    H1 tag: States
-    UL tag: List of all State objects in DBStorage sorted by name
-    LI tag: Description of one State: <state.id>: <B><state.name></B>
-    """
+    """Displays HTML page like 6-index.html"""
     return render_template("10-hbnb_filters.html",
-                           data=storage.all(State).values())
+                           location=storage.all(State).values(),
+                           amenities=storage.all(Amenity).values())
 
 
 @app.teardown_appcontext
